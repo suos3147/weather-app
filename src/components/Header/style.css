@@ -1,0 +1,30 @@
+.app-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+  padding: 5px;
+  background-color: #adadad;
+  color: white;
+}
+
+.app-title:hover > .logo {
+  animation: logo-spin infinite 3s linear;
+}
+
+.logo {
+  width: 2rem;
+  height: 2rem;
+}
+
+.title {
+  margin: 0;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
