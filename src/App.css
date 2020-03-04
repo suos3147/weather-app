@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Jua&display=swap");
 
-body {
+.App {
   font-family: "Jua", sans-serif;
   background-color: #f8f8f8;
 }
