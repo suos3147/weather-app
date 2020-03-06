@@ -5,6 +5,7 @@
   padding: 5px;
   background-color: #adadad;
   color: white;
+  cursor: default;
 }
 
 .app-title:hover > .logo {
