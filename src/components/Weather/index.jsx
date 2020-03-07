@@ -1,14 +1,27 @@
 import React from "react";
 import "./style.css";
+import { Sunny } from "../../assets/icon";
 
 const Weather = () => {
   return (
-    <div>
-      <div>test</div>
-      <div>test</div>
+    <div className="main-weather">
+      <button>🔺</button>
+      <div className="weahter">
+        {getWeatherImg()}
+        <div className="weather-text">
+          <span>6℃ </span>
+          <span>맑음</span>
+        </div>
+      </div>
+      <button>🔻</button>
     </div>
   );
 };
+
+const getWeatherImg = () => {
+  return <Sunny className="weather-icon"></Sunny>;
+};
+
 /*
 const getLocation = () => {
   if (navigator.geolocation) {

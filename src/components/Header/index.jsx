@@ -4,7 +4,7 @@ import "./style.css";
 
 const Header = () => {
   return (
-    <header className="app-header">
+    <header>
       <div className="app-title">
         <Logo className="logo" />
         <h2 className="title">Weather</h2>
