@@ -8,17 +8,9 @@ body {
 .App {
   display: flex;
   flex-direction: column;
-  flex: 5;
-}
-
-.app-header {
-  flex: 1;
+  height: 100vh;
 }
 
 .app-main {
-  flex: 5;
-}
-
-.app-footer {
   flex: 1;
 }
