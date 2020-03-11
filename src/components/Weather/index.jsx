@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import "./style.css";
-//import { Sunny, Cloudy, Wind } from "../../assets/icon";
-
+import {
+  Sunny,
+  Cloudy,
+  Rainy,
+  Snow,
+  Storm,
+  Thermometer
+} from "../../assets/icon";
+const API_KEY = "33837eaf6c75e69f8d053726644db6e0";
 class Weather extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      temp: null,
-      weather: [],
+      current: {},
       isLoading: false,
       error: null
     };
@@ -15,12 +21,12 @@ class Weather extends Component {
 
   getWeather = (lat, lon) => {
     fetch(
-      `https://api.openweathermap.org/data/2.5/forcast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
     )
       .then(response => response.json())
       .then(data => {
         this.setState({
-          weather: data.list[0].weather,
+          current: data,
           isLoading: false
         });
       })
@@ -38,97 +44,89 @@ class Weather extends Component {
     }
   };
 
-  async componentDidMount() {
+  async componentWillMount() {
     this.setState({ isLoading: true });
     await this.getPosition(this.getWeather);
   }
 
   render() {
-    const { weather, isLoading } = this.state;
-    console.log(weather);
+    const { current, isLoading } = this.state;
     if (isLoading) {
       return <p className="app-main">Loading...</p>;
     }
+
+    const {
+      main: { temp, temp_max, temp_min, feels_like },
+      weather: [{ id, description }]
+    } = current;
+
+    let icon = "";
+    switch (id) {
+      case (200 <= id) & (id < 300):
+        icon = <Storm className="weather-icon"></Storm>;
+        break;
+      case (300 <= id) & (id < 600):
+        icon = <Rainy className="weather-icon"></Rainy>;
+        break;
+      case (600 <= id) & (id < 700):
+        icon = <Snow className="weather-icon"></Snow>;
+        break;
+      case (801 <= id) & (id < 805):
+        icon = <Cloudy className="weather-icon"></Cloudy>;
+        break;
+      case 800:
+        icon = <Sunny className="weather-icon"></Sunny>;
+        break;
+      default:
+        icon = "";
+    }
+
     return (
-      <ul className="app-main">
-        {weather.map(({ id, main }) => (
-          <li key={id}>{main}</li>
-        ))}
-      </ul>
+      <div className="app-main main-weather">
+        <div className="current-weather">
+          <div className="icon-box">
+            {icon}
+            <span className="weather-text">{description}</span>
+          </div>
+          <div class="current-temp">
+            <div className="temp">
+              <Thermometer className="temp-icon"></Thermometer>
+              <span className="temp-main">{Math.floor(temp - 273.15)}°C</span>
+              <span className="small">
+                {`/${Math.floor(((temp - 273.15) * 9) / 5 + 32)}°F`}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="temp-box">
+          <div className="temp">
+            <span className="temp-feels">
+              {`체감온도:  ${Math.floor(feels_like - 273.15)}°C`}
+            </span>
+            <span className="temp-feels small">
+              {`/${Math.floor(((feels_like - 273.15) * 9) / 5 + 32)}°F`}
+            </span>
+          </div>
+          <div className="temp">
+            <span className="temp-max">{`최고기온:  ${Math.floor(
+              temp_max - 273.15
+            )}°C`}</span>
+            <span className="temp-max small">{`/${Math.floor(
+              ((temp_max - 273.15) * 9) / 5 + 32
+            )}°F`}</span>
+          </div>
+          <div className="temp">
+            <span className="temp-min">{`최저기온:  ${Math.floor(
+              temp_min - 273.15
+            )}°C`}</span>
+            <span className="temp-min small">{`/${Math.floor(
+              ((temp_min - 273.15) * 9) / 5 + 32
+            )}°F`}</span>
+          </div>
+        </div>
+      </div>
     );
   }
 }
 
 export default Weather;
-
-/*class Weather extends Component {
-  construructor(props){
-    super(props);
-    this.state = {
-      data: ""
-    }
-  }
-  componentWiiMount
-  let city_name = "Seoul";
-  const API_KEY = "33837eaf6c75e69f8d053726644db6e0";
-  const URL = `api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${API_KEY}`;
-
-  const [weather, setWeather] = useState("");
-  const getWeatherImg = forecast => {
-    console.log(forecast);
-    switch (forecast) {
-      case 1:
-        setWeather(<Sunny className="weather-icon"></Sunny>);
-        break;
-      case 2:
-        setWeather(<Cloudy className="weather-icon"></Cloudy>);
-        break;
-      case 3:
-        setWeather(<Wind className="weather-icon"></Wind>);
-        break;
-      default:
-        return console.error(forecast);
-    }
-  };
-
-  render(){return (
-    <div className="app-main main-weather">
-      <button onClick={() => getWeatherImg(1)}>🔺</button>
-      <div className="weather">
-        {weather}
-        <div className="weather-text">
-          <span>오늘 날씨</span>
-          <span>6℃ </span>
-          <span>맑음</span>
-        </div>
-      </div>
-      <button onClick={() => getWeatherImg(2)}>🔻</button>
-    </div>
-  );}
-};
-
-/*
-const getLocation = () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-      let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
-      return lat, lon;
-    });
-  }
-};
-
-
-const getWeather = (lat, lon) => {
-  fetch(
-    ` `
-  )
-    .then(response => response.json())
-    .then(json => {
-      console.log(json);
-    });
-};
-
-
-export default Weather;
-*/
