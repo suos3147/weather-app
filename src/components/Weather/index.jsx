@@ -6,7 +6,7 @@ class Weather extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      main: [],
+      temp: null,
       weather: [],
       isLoading: false,
       error: null
@@ -20,7 +20,7 @@ class Weather extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({
-          weather: data.list.weather,
+          weather: data.list[0].weather,
           isLoading: false
         });
       })
@@ -47,10 +47,10 @@ class Weather extends Component {
     const { weather, isLoading } = this.state;
     console.log(weather);
     if (isLoading) {
-      return <p>Loading...</p>;
+      return <p className="app-main">Loading...</p>;
     }
     return (
-      <ul>
+      <ul className="app-main">
         {weather.map(({ id, main }) => (
           <li key={id}>{main}</li>
         ))}
