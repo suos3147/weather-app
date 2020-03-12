@@ -57,45 +57,45 @@ class Weather extends Component {
 
     const {
       main: { temp, temp_max, temp_min, feels_like },
-      weather: [{ id, description }]
+      weather: [{ id, description, icon }]
     } = current;
 
-    let icon = "";
-    switch (id) {
-      case (200 <= id) & (id < 300):
-        icon = <Storm className="weather-icon"></Storm>;
-        break;
-      case (300 <= id) & (id < 600):
-        icon = <Rainy className="weather-icon"></Rainy>;
-        break;
-      case (600 <= id) & (id < 700):
-        icon = <Snow className="weather-icon"></Snow>;
-        break;
-      case (801 <= id) & (id < 805):
-        icon = <Cloudy className="weather-icon"></Cloudy>;
-        break;
-      case 800:
-        icon = <Sunny className="weather-icon"></Sunny>;
-        break;
-      default:
-        icon = "";
-    }
+    // let icon = "";
+    // switch (id) {
+    //   case id < 300:
+    //     icon = <Storm className="weather-icon"></Storm>;
+    //     break;
+    //   case id < 600:
+    //     icon = <Rainy className="weather-icon"></Rainy>;
+    //     break;
+    //   case id < 700:
+    //     icon = <Snow className="weather-icon"></Snow>;
+    //     break;
+    //   case 800:
+    //     icon = <Sunny className="weather-icon"></Sunny>;
+    //     break;
+    //   case id < 900:
+    //     icon = <Cloudy className="weather-icon"></Cloudy>;
+    //     break;
+
+    //   default:
+    //     icon = "";
+    // }
 
     return (
       <div className="app-main main-weather">
         <div className="current-weather">
           <div className="icon-box">
-            {icon}
+            <img src={`http://openweathermap.org/img/w/${icon}.png`} alt="" />
+            {console.log(id)}
             <span className="weather-text">{description}</span>
           </div>
-          <div class="current-temp">
-            <div className="temp">
-              <Thermometer className="temp-icon"></Thermometer>
-              <span className="temp-main">{Math.floor(temp - 273.15)}°C</span>
-              <span className="small">
-                {`/${Math.floor(((temp - 273.15) * 9) / 5 + 32)}°F`}
-              </span>
-            </div>
+          <div className="temp current-temp">
+            <Thermometer className="temp-icon"></Thermometer>
+            <span className="temp-main">{Math.floor(temp - 273.15)}°C</span>
+            <span className="small">
+              {`/${Math.floor(((temp - 273.15) * 9) / 5 + 32)}°F`}
+            </span>
           </div>
         </div>
         <div className="temp-box">

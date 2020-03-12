@@ -3,6 +3,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 80%;
+  margin: auto;
 }
 
 .current-weather {
@@ -18,14 +20,11 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  flex: 1;
 }
 
 .current-temp {
-  display: flex;
   height: 50%;
-  padding: 20px;
-  justify-content: end;
+  background-color: antiquewhite;
 }
 
 .weather-icon {
@@ -34,7 +33,6 @@
 }
 
 .weather-text {
-  margin: 0;
   font-size: 2.5rem;
   font-weight: 600;
   text-align: center;
@@ -46,21 +44,20 @@
   display: flex;
   justify-content: space-around;
   font-size: 1.2rem;
-  padding: 0 20px;
   width: 100%;
+  flex: 1;
+  align-items: center;
 }
 
 .temp {
   display: flex;
-  align-items: flex-end;
-  margin-bottom: 15px;
+  align-items: first baseline;
 }
 
 .temp-icon {
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   padding: 0 0.5rem;
-  margin: 10px 0;
 }
 
 .temp-main {
@@ -69,18 +66,15 @@
 }
 
 .temp-feels {
-  padding: 5px;
   font-weight: 600;
 }
 
 .temp-max {
-  padding: 5px;
   color: red;
   font-weight: 600;
 }
 
 .temp-min {
-  padding: 5px;
   color: blue;
   font-weight: 600;
 }
