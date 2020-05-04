@@ -3,7 +3,6 @@ import "./style.css";
 import {Thermometer} from "../../assets/icon";
 
 const API_WEATHER = process.env.REACT_APP_WEATHER_API_KEY;
-const API_KAKAO = process.env.REACT_APP_KAKAO_MAP_KEY;
 class Weather extends Component {
   constructor(props) {
     super(props);
@@ -13,14 +12,6 @@ class Weather extends Component {
       error: null,
     };
   }
-
-  getAddress = (lat, lon) => {
-    fetch(`
-    http://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&language=ko
-    `)
-      .then((response) => response.json())
-      .then((data) => data);
-  };
 
   getWeather = (lat, lon) => {
     fetch(
@@ -55,6 +46,12 @@ class Weather extends Component {
     await this.getPosition(this.getWeather);
   }
 
+  componentDidUpdate() {
+    const name = this.state.currentWeather.name;
+    if (!name) return;
+    this.props.setLocation(name);
+  }
+
   render() {
     const {currentWeather, isLoading} = this.state;
     if (isLoading) {
@@ -62,8 +59,9 @@ class Weather extends Component {
     }
 
     const {
+      weather: [{description, icon}],
       main: {temp, temp_max, temp_min, feels_like},
-      weather: [{id, description, icon}],
+      name,
     } = currentWeather;
 
     return (
@@ -75,6 +73,7 @@ class Weather extends Component {
               alt={description}
             />
             <span className="weather-text">{description}</span>
+            {name}
           </div>
           <div className="temp current-temp">
             <Thermometer className="temp-icon"></Thermometer>
