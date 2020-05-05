@@ -1,16 +1,32 @@
 import React, {Component} from "react";
-import {Logo} from "../../assets/icon";
 import "./style.css";
 
 class Header extends Component {
   render() {
-    console.log(this.props.location);
+    const location = this.props.location;
+    const date = new Date();
+    const month = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
     return (
-      <header className="app-header">
-        <div className="app-title">
-          <Logo className="logo" />
-          <h2 className="title">Weather</h2>
-        </div>
+      <header className="header">
+        <span className="location">{location}</span>
+        <section className="date">
+          <span>{month[date.getMonth()]} </span>
+          <span>{date.getDate()}, </span>
+          <span>{date.getFullYear()}</span>
+        </section>
       </header>
     );
   }
