@@ -55,61 +55,35 @@ class Weather extends Component {
   render() {
     const {currentWeather, isLoading} = this.state;
     if (isLoading) {
-      return <p className="app-main">Loading...</p>;
+      return <p className="main">Loading...</p>;
     }
 
     const {
       weather: [{description, icon}],
       main: {temp, temp_max, temp_min, feels_like},
-      name,
     } = currentWeather;
 
     return (
-      <div className="app-main">
-        <div className="current-weather">
-          <div className="icon-box">
-            <img
-              src={`http://openweathermap.org/img/w/${icon}.png`}
-              alt={description}
-            />
-            <span className="weather-text">{description}</span>
-            {name}
-          </div>
-          <div className="temp current-temp">
-            <Thermometer className="temp-icon"></Thermometer>
-            <span className="temp-main">{Math.floor(temp - 273.15)}°C</span>
-            <span className="small">
-              {`/${Math.floor(((temp - 273.15) * 9) / 5 + 32)}°F`}
-            </span>
-          </div>
-        </div>
-        <div className="temp-box">
-          <div className="temp">
-            <span className="temp-feels">
-              {`체감온도:  ${Math.floor(feels_like - 273.15)}°C`}
-            </span>
-            <span className="temp-feels small">
-              {`/${Math.floor(((feels_like - 273.15) * 9) / 5 + 32)}°F`}
-            </span>
-          </div>
-          <div className="temp">
-            <span className="temp-max">{`최고기온:  ${Math.floor(
-              temp_max - 273.15
-            )}°C`}</span>
-            <span className="temp-max small">{`/${Math.floor(
-              ((temp_max - 273.15) * 9) / 5 + 32
-            )}°F`}</span>
-          </div>
-          <div className="temp">
-            <span className="temp-min">{`최저기온:  ${Math.floor(
-              temp_min - 273.15
-            )}°C`}</span>
-            <span className="temp-min small">{`/${Math.floor(
-              ((temp_min - 273.15) * 9) / 5 + 32
-            )}°F`}</span>
-          </div>
-        </div>
-      </div>
+      <main className="main">
+        <section className="weather-conditions">
+          <img
+            src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+            alt={description}
+          />
+          <span className="weather-text">{description}</span>
+        </section>
+        <section className="weather-temp-main">
+          <span className="temp-main">{`${Math.floor(temp - 273.15)}°C`}</span>
+          <span className="temp-feels">
+            Feels Like {`${Math.floor(feels_like - 273.15)}°C`}
+          </span>
+        </section>
+        <section className="weather-temp">
+          <span className="temp">{`${Math.floor(temp_max - 273.15)}°C`}</span>
+          <div className="temp-line"></div>
+          <span className="temp">{`${Math.floor(temp_min - 273.15)}°C`}</span>
+        </section>
+      </main>
     );
   }
 }
