@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import Weather from "./components/Weather";
 import "./App.css";
 
@@ -12,7 +11,6 @@ const App = () => {
         <Header location={location}></Header>
         <Weather setLocation={setLocation}></Weather>
       </section>
-      <Footer></Footer>
     </div>
   );
 };
