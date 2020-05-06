@@ -21,11 +21,24 @@ class Header extends Component {
     ];
     return (
       <header className="header">
-        <span className="location">{location}</span>
+        <section className="title">
+          <span className="location">{location}</span>
+          <div className="line"></div>
+        </section>
+
         <section className="date">
           <span>{month[date.getMonth()]} </span>
           <span>{date.getDate()}, </span>
           <span>{date.getFullYear()}</span>
+        </section>
+        <section className="time">
+          <span>{date.getHours()}</span>
+          <span>:</span>
+          <span>
+            {date.getMinutes() < 10
+              ? `0${date.getMinutes()}`
+              : date.getMinutes()}
+          </span>
         </section>
       </header>
     );
