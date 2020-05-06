@@ -87,7 +87,7 @@ class Weather extends Component {
         </section>
         <section className="weather-update-time">
           <span className="update-time">
-            {`Update ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`}
+            {`Update weather [${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}]`}
           </span>
         </section>
       </main>
