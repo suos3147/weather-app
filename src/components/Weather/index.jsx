@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import "./style.css";
-import {Thermometer} from "../../assets/icon";
 
 const API_WEATHER = process.env.REACT_APP_WEATHER_API_KEY;
 class Weather extends Component {
@@ -61,7 +60,10 @@ class Weather extends Component {
     const {
       weather: [{description, icon}],
       main: {temp, temp_max, temp_min, feels_like},
+      dt,
     } = currentWeather;
+
+    const date = new Date(dt * 1000);
 
     return (
       <main className="main">
@@ -82,6 +84,11 @@ class Weather extends Component {
           <span className="temp">{`${Math.floor(temp_max - 273.15)}°C`}</span>
           <div className="temp-line"></div>
           <span className="temp">{`${Math.floor(temp_min - 273.15)}°C`}</span>
+        </section>
+        <section className="weather-update-time">
+          <span className="update-time">
+            {`Update ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`}
+          </span>
         </section>
       </main>
     );
